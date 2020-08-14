@@ -1,0 +1,46 @@
+import React from 'react';
+import axios from 'axios';
+
+
+class Auth extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
+    
+    universalHandler(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    register() {
+        const {username, password} = this.state;
+        axios.post('/auth/register', {username, password})
+        .then(res => this.props.history.push('/Dashboard'))
+    }
+
+    login() {
+        const {username, password} = this.state;
+        axios.post('/auth/login', {username, password})
+        .then(res => this.props.history.push('/Dashboard'))
+    }
+    render() {
+        return (
+            <div>
+                Auth
+                username: 
+                <input onChange={e => this.state.universalHandler(e)} name='username' value={this.state.username}/>
+                password:
+                <input onChange={e => this.state.universalHandler(e)} name='password' value={this.state.password}/>
+                <button onClick={() => this.login()}>Login</button>
+                <button onClick={() => this.register()}>Register</button>
+            </div>
+        )
+    }
+}
+
+export default Auth;
