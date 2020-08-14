@@ -13,17 +13,27 @@ class Dashboard extends React.Component {
             posts: [],
             
         }
+        this.getPosts = this.getPosts.bind(this)
     }
+    
 
     getPosts() {
         const {id} = reducer;
         const {search, showMyPosts} = this.state;
+        console.log(search, showMyPosts)
        axios.get(`/api/posts/${id}`, {search, showMyPosts})
        .then(res => {
            this.setState({
                posts: res.data
            })
        }) 
+       console.log(this.state.posts)
+    }
+
+    universalHandler(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
 
     componentDidMount() {
@@ -37,8 +47,8 @@ class Dashboard extends React.Component {
         return (
             <div>
                 Dashboard
-                <input placeholder='search' />
-                <button>Search</button>
+                <input name='search' value={this.state.search} placeholder='search' onChange={(e) => this.universalHandler(e)} />
+                <button onClick={this.getPosts}>Search</button>
                 <button>Reset</button>
                 <p>Show My Posts</p><input type='checkbox'/>
                 {posts}

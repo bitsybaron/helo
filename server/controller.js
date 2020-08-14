@@ -24,19 +24,27 @@ module.exports = {
             }
         }
     },
-    getPosts: (req, res) => {
+    getPosts: async (req, res) => {
         const db = req.app.get('db');
         const {search, showMyPosts} = req.body;
+        console.log(search, showMyPosts)
         const {id} = req.params;
-        if (showMyPosts === true && search) {
-            const allPosts = db.get_searched_posts(search);
+        if (showMyPosts && search) {
+           
+            const allPosts = await db.get_searched_posts(search);
+            console.log(allPosts)
             res.status(200).send(allPosts);
+            
         } else if(showMyPosts === false && search) {
-            const theirPosts = db.get_their_posts(search, id) 
+            
+            const theirPosts = await db.get_their_posts(search, id) 
             res.status(200).send(theirPosts)
         } else if(showMyPosts === false & !search) {
-            const allPosts = db.get_all_posts();
+            
+            const allPosts = await db.get_all_posts();
             res.status(200).send(allPosts)
+        } else {
+
         }
     }
     

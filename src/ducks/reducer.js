@@ -20,7 +20,7 @@ export default function reducer(state = initialState, action) {
     switch(action.type){
         case IDKYET:
             return {
-                id: action.payload.id,
+                id: action.payload.id[0].user_id,
                 username: action.payload.username,
                 profilePic: action.payload.profilePic
             }
