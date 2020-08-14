@@ -16,3 +16,8 @@ CREATE TABLE helo_posts (
 ALTER TABLE helo_users
 ALTER password 
 TYPE TEXT;
+
+INSERT INTO helo_posts (title, img, content, author_id)
+VALUES
+('I love to run!', 'https://images.altrarunning.com/is/image/altra/ALW1963P024-HERO?$WC-FULLIMAGE$', 'Running is great and good and cool.', 1),
+('No, I love to swim!', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTlNIyoksewIBRpk30swd8niTuejMDL8XbuQCHnoRDBbQzmQ5APult0VWlZx3pFXXdjIiwnjHp0&usqp=CAc', 'Swimming is better than running. Sorry', 1);

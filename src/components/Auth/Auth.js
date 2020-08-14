@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {idkyet} from '../../ducks/reducer';
 
 
 class Auth extends React.Component {
@@ -20,22 +22,26 @@ class Auth extends React.Component {
     register() {
         const {username, password} = this.state;
         axios.post('/auth/register', {username, password})
-        .then(res => this.props.history.push('/Dashboard'))
+        .then(res => {
+            this.props.idkyet(res.data);
+            this.props.history.push('/Dashboard')})
     }
 
     login() {
         const {username, password} = this.state;
         axios.post('/auth/login', {username, password})
-        .then(res => this.props.history.push('/Dashboard'))
+        .then(res => {
+            this.props.idkyet(res.data);
+            this.props.history.push('/Dashboard')})
     }
     render() {
         return (
             <div>
                 Auth
                 username: 
-                <input onChange={e => this.state.universalHandler(e)} name='username' value={this.state.username}/>
+                <input onChange={e => this.universalHandler(e)} name='username' value={this.state.username}/>
                 password:
-                <input onChange={e => this.state.universalHandler(e)} name='password' value={this.state.password}/>
+                <input onChange={e => this.universalHandler(e)} name='password' value={this.state.password}/>
                 <button onClick={() => this.login()}>Login</button>
                 <button onClick={() => this.register()}>Register</button>
             </div>
@@ -43,4 +49,4 @@ class Auth extends React.Component {
     }
 }
 
-export default Auth;
+export default connect(null, {idkyet})(Auth);
